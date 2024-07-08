@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en"
+    xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+    <meta charset="UTF-8">
+    <title>Registration and Login System</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+          crossorigin="anonymous">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" th:href="@{/index}">Registration and Login System</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" th:href="@{/logout}">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="container">
+    <div class="row col-md-10">
+        <h2>Bid you Amount</h2>
+    </div>
+    <table class="table table-bordered table-hover">
+        <thead class="table-dark">
+            <tr>
+                <th>Product Name</th>
+                <th>Reserved Price</th>
+                <th>Bid Start Time</th>
+                <th>Bid End Time</th>
+                <th>Max Bid Value</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td th:text = "${product.name}"></td>
+                <td th:text = "${product.bidAmount}"></td>
+                <td th:text = "${product.bitStartTime}"></td>
+                <td th:text = "${product.bitEndTime}"></td>
+                <td th:text = "${product.maxBidAmountDouble}"></td>
+               
+            </tr>
+        </tbody>
+    </table>
+    <div>
+     <div th:if="${param.success}">
+          <div class="alert alert-info">
+            You have successfully bid for the product!
+          </div>
+      </div>
+    <form method="post" th:action="@{/products/bid/save/{id}(id=${product.id})}" role="form" th:object="${bidAmountDto}">
+    <!-- <input type="number" th:name="bidamount"/> -->
+    <input
+                     
+                      id="bidamount"
+                      name="bidamount"
+                      placeholder="Enter bid amount"
+                      th:field="*{bidAmount}"
+                      type="number"
+              />
+    <input type="submit"/>
+    
+    </form>
+              
+   <!--  <div class="card-body">
+          <form
+            method="post"
+            role="form"
+            th:action="@{/products/bid/save}"
+            th:object="${bidAmount}"
+          >
+            <div class="form-group mb-3">
+              <label class="form-label">Bid Amount</label>
+              <input
+                      class="form-control"
+                      id="bidAmount"
+                      name="bidAmount"
+                      placeholder="Enter bidAmount"
+                      th:field="*{bidAmount}"
+                      type="number"
+              />
+              <p th:errors = "*{bidAmount}" class="text-danger"
+              th:if="${#fields.hasErrors('bidAmount')}"></p>
+            </div>
+
+            <div class="form-group">
+              <button class="btn btn-primary" type="submit">Submit</button>
+              
+            </div>
+          </form>
+      </div> -->
+</div>
+</body>
+</html>
